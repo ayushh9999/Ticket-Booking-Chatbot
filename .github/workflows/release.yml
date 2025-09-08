@@ -1,0 +1,52 @@
+name: 🏷️ Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: 📦 Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📋 Get release info
+      id: release_info
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/tags/}
+        echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+        echo "release_name=Release $TAG_NAME" >> $GITHUB_OUTPUT
+        
+    - name: 📝 Generate changelog
+      id: changelog
+      run: |
+        if [ -f CHANGELOG.md ]; then
+          # Extract current version changes from CHANGELOG.md
+          awk '/^## \[.*\]/{if(++count==1) print; next} /^## \[.*\]/{exit} count==1' CHANGELOG.md > current_changes.md
+          echo "changelog_file=current_changes.md" >> $GITHUB_OUTPUT
+        else
+          echo "No changelog found" > current_changes.md
+          echo "changelog_file=current_changes.md" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: 🚀 Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.release_info.outputs.tag_name }}
+        release_name: ${{ steps.release_info.outputs.release_name }}
+        body_path: ${{ steps.changelog.outputs.changelog_file }}
+        draft: false
+        prerelease: false
+        
+    - name: 📊 Release Summary
+      run: |
+        echo "## 🎉 Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "- **Tag**: ${{ steps.release_info.outputs.tag_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Release**: ${{ steps.release_info.outputs.release_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Repository**: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
