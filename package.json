@@ -1,0 +1,77 @@
+{
+  "name": "ai-ticket-booking-chatbot",
+  "version": "1.0.0",
+  "description": "An AI-powered chatbot for museum ticket booking with voice recognition, multilingual support, and integrated payment processing",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "start:php": "php -S localhost:8000",
+    "lint:html": "html-validate *.html",
+    "lint:css": "stylelint '*.css'",
+    "lint:js": "jshint *.js",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run start",
+    "validate": "npm run lint && echo 'All validation checks passed!'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayushh9999/Ticket-Booking-Chatbot.git"
+  },
+  "keywords": [
+    "chatbot",
+    "ai",
+    "voice-recognition",
+    "ticket-booking",
+    "museum",
+    "payment",
+    "upi",
+    "multilingual",
+    "speech-recognition",
+    "javascript",
+    "php",
+    "html5",
+    "css3"
+  ],
+  "author": {
+    "name": "Ayush Mondal",
+    "email": "ayushmondal139@gmail.com",
+    "url": "https://github.com/ayushh9999"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayushh9999/Ticket-Booking-Chatbot/issues"
+  },
+  "homepage": "https://github.com/ayushh9999/Ticket-Booking-Chatbot#readme",
+  "devDependencies": {
+    "html-validate": "^8.0.0",
+    "stylelint": "^15.10.0",
+    "stylelint-config-standard": "^34.0.0",
+    "jshint": "^2.13.6"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Safari >= 11",
+    "Edge >= 79"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "files": [
+    "*.html",
+    "*.css",
+    "*.js",
+    "*.php",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ]
+}
